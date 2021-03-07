@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 finviz = "*"
 pandas = "*"
+jinja2 = "*"
 
 [dev-packages]
 

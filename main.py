@@ -9,17 +9,22 @@ mailgun_sandbox=os.environ.get('MAILGUN_SANDBOX')
 mailgun_key=os.environ.get('MAILGUN_KEY')
 to_email=os.environ.get('TO_EMAIL')
 
-def send_email(stocks):
+def send_email(title1, stocks1, title2, stocks2):
     try:
-        df = pd.Series(stocks).to_frame()
-        
+        df1 = pd.Series(stocks1).to_frame()
+        df1.style.set_caption(title1)
+        df2 = pd.Series(stocks2).to_frame()
+        df2.style.set_caption(title2)
+
+
         request_url = 'https://api.mailgun.net/v2/{0}/messages'.format(mailgun_sandbox)
         request = requests.post(request_url, auth=('api', mailgun_key), 
         data={
         'from': 'finviz-notifierr@noreply.com',
         'to': to_email,
         'subject':'finviz notifier:' + str(date.today()),
-        'html': df.to_html()        })
+        'html': df1.to_html()  + "\n\n" + df2.to_html()       
+        })
         
         print ('Status: ',format(request.status_code))
         print ('Body: ',format(request.text))
@@ -28,27 +33,25 @@ def send_email(stocks):
 
 ################
 
-filters = ['f', 'an_recom_sellworse,cap_smallover,fa_fpe_low,ta_sma20_pa' ]  
-stock_list = Screener(filters=filters, table='Performance', order='price')  # Get the performance table and sort it by price ascending
 
-# Export the screener results to .csv
-stock_list.to_csv("stock.csv")
+def build (filters):
+    stock_list = Screener(filters=filters, table='Performance', order='price')  # Get the performance table and sort it by price ascending
 
-print(stock_list)
+    # Export the screener results to .csv
+    stock_list.to_csv("stock.csv")
+
+    print(stock_list)
+    map = {}
+    for stock in stock_list:
+        map[(stock['Ticker'])] = stock['Price']
+
+   
 
 ################
 
-filters = ['f', 'fa_eps5years_pos,fa_epsqoq_o20,fa_epsyoy_o10,fa_epsyoy1_o15,fa_estltgrowth_pos,sh_instown_o10,ta_highlow52w_a90h,ta_rsi_nos50,ta_sma20_pa,ta_sma50_pa' ]  
-stock_list = Screener(filters=filters, table='Performance', order='price')  # Get the performance table and sort it by price ascending
+filters1 = ['f', 'an_recom_sellworse,cap_smallover,fa_epsyoy1_o10,fa_fpe_low,ta_sma20_pa&ft=4&o=marketcap' ]
+filters2 = ['f', 'fa_eps5years_pos,fa_epsqoq_o20,fa_epsyoy_o25,fa_epsyoy1_o15,fa_estltgrowth_pos,fa_roe_o15,sh_instown_o10,sh_price_o15,ta_highlow52w_a90h,ta_rsi_nos50&ft=4' ]
 
-# Export the screener results to .csv
-stock_list.to_csv("stock.csv")
+send_email('downgraded', build(filters1), 'dunno', build(filters2))
 
-print(stock_list)
-
-map = {}
-for stock in stock_list:
-    map[(stock['Ticker'])] = stock['Price']
-
-send_email(map)
 
