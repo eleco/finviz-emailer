@@ -45,6 +45,8 @@ def build (filters):
     for stock in stock_list:
         map[(stock['Ticker'])] = stock['Price']
 
+    return map
+
    
 
 ################
