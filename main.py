@@ -19,7 +19,7 @@ def send_email(title1, stocks1, title2, stocks2):
         'from': 'finviz-notifierr@noreply.com',
         'to': to_email,
         'subject':'finviz notifier:' + str(date.today()),
-        'html': 
+        'text': 
         "<h1>" + title1 + "</h1>\n" + str(stocks1)  + "\n\n" +
         "<h1>" + title2 +"</h1>\n" + str(stocks2)       
         })
