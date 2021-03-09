@@ -3,6 +3,9 @@ import requests
 from datetime import date
 import pandas as pd
 import os
+import yfinance as yf
+
+
 
 
 mailgun_sandbox=os.environ.get('MAILGUN_SANDBOX')
@@ -44,7 +47,8 @@ def build (filters):
     print(stock_list)
     map = {}
     for stock in stock_list:
-        map[(stock['Ticker'])] = stock['Price']
+        msft = yf.Ticker(stock['Ticker'])
+        map[(stock['Ticker'])] = msft.info['longName'] + ' --> ' +stock['Price']
 
     return map
 
