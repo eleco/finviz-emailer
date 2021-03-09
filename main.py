@@ -23,7 +23,9 @@ def send_email(title1, stocks1, title2, stocks2):
         'from': 'finviz-notifierr@noreply.com',
         'to': to_email,
         'subject':'finviz notifier:' + str(date.today()),
-        'html': df1.to_html()  + "\n\n" + df2.to_html()       
+        'html': 
+        "<h1>" + title1 + "</h1>\n" + df1.to_html()  + "\n\n" +
+        "<h1>" + title2 +"</h1>\n" + df2.to_html()       
         })
         
         print ('Status: ',format(request.status_code))
