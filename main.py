@@ -51,8 +51,10 @@ def build (filters):
     map = {}
     for stock in stock_list:
         
-        name = stocks_name[stock['Ticker']]
-        if not name:
+        
+        if stock['Ticker'] in  stocks_name:
+            name = stocks_name[stock['Ticker']]
+        else:
             msft = yf.Ticker(stock['Ticker'])
             stocks_name[stock['Ticker']] = msft.info['longName'] 
             name = msft.info['longName']
@@ -66,8 +68,8 @@ def build (filters):
 ################
 
 filters1 = ['f', 'an_recom_sellworse,cap_smallover,fa_epsyoy1_o10,fa_fpe_low,ta_sma20_pa&ft=4&o=marketcap' ]
-filters2 = ['f', 'fa_eps5years_pos,fa_epsqoq_o20,fa_epsyoy_o25,fa_epsyoy1_o15,fa_estltgrowth_pos,fa_roe_o15,sh_instown_o10,sh_price_o15,ta_highlow52w_a90h,ta_rsi_nos50&ft=4' ]
+filters2 = ['f', 'fa_debteq_u1,fa_roe_o20,sh_avgvol_o100,ta_highlow50d_nh,ta_sma20_pa,ta_sma200_pa,ta_sma50_pa&ft=4&o=-perf1w']
 
-send_email('downgraded on the up', build(filters1), 'dunno', build(filters2))
+send_email('downgraded on the up', build(filters1), 'breaking out', build(filters2))
 
 
