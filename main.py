@@ -12,6 +12,9 @@ mailgun_sandbox=os.environ.get('MAILGUN_SANDBOX')
 mailgun_key=os.environ.get('MAILGUN_KEY')
 to_email=os.environ.get('TO_EMAIL')
 
+
+stocks_name ={}
+
 def send_email(title1, stocks1, title2, stocks2):
     try:
         df1 = pd.Series(stocks1).to_frame()
@@ -47,8 +50,14 @@ def build (filters):
     print(stock_list)
     map = {}
     for stock in stock_list:
-        msft = yf.Ticker(stock['Ticker'])
-        map[(stock['Ticker'])] = msft.info['longName'] + ' --> ' +stock['Price']
+        
+        name = stocks_name[stock['Ticker']]
+        if not name:
+            msft = yf.Ticker(stock['Ticker'])
+            stocks_name[stock['Ticker']] = msft.info['longName'] 
+            name = msft.info['longName']
+        
+        map[(stock['Ticker'])] = name + ' --> ' +stock['Price']
 
     return map
 
@@ -59,6 +68,6 @@ def build (filters):
 filters1 = ['f', 'an_recom_sellworse,cap_smallover,fa_epsyoy1_o10,fa_fpe_low,ta_sma20_pa&ft=4&o=marketcap' ]
 filters2 = ['f', 'fa_eps5years_pos,fa_epsqoq_o20,fa_epsyoy_o25,fa_epsyoy1_o15,fa_estltgrowth_pos,fa_roe_o15,sh_instown_o10,sh_price_o15,ta_highlow52w_a90h,ta_rsi_nos50&ft=4' ]
 
-send_email('downgraded', build(filters1), 'dunno', build(filters2))
+send_email('downgraded on the up', build(filters1), 'dunno', build(filters2))
 
 
