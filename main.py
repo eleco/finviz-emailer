@@ -71,8 +71,8 @@ def build (filters):
 
 filters1 = ['f', 'an_recom_sellworse,cap_smallover,fa_epsyoy1_o10,fa_fpe_low,ta_sma20_pa&ft=4&o=marketcap' ]
 filters2 = ['f', 'fa_debteq_u1,fa_roe_o20,sh_avgvol_o100,ta_highlow50d_nh,ta_sma20_pa,ta_sma200_pa,ta_sma50_pa&ft=4&o=-perf1w']
-filters3 = ['f', 'cap_smallunder,fa_pb_low,fa_pe_low,fa_peg_low,fa_roa_pos,fa_roe_pos,sh_price_o5&ft=4&o=-perfytd']
-filters4 = ['f', 'fa_eps5years_o20,fa_epsqoq_o20,fa_epsyoy_o20,fa_sales5years_o20,fa_salesqoq_o20,sh_curvol_o200&ft=4']
+filters3 = ['f', 'cap_smallover,fa_pb_low,fa_pe_low,fa_peg_low,fa_roa_pos,fa_roe_pos,sh_price_o5,ta_sma50_pa&ft=4&o=-perfytd']
+filters4 = ['f', 'cap_microover,fa_eps5years_o20,fa_epsqoq_o20,fa_epsyoy_o20,fa_sales5years_o20,fa_salesqoq_o20,sh_curvol_o100,ta_rsi_nob60,ta_sma50_pa&ft=4']
 
 send_email('downgraded on the up', build(filters1), 'breaking out', build(filters2), 'low PE value', build(filters3),
 'CANSLIM', build(filters4))
