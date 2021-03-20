@@ -4,16 +4,33 @@ from datetime import date
 import pandas as pd
 import os
 import yfinance as yf
+import boto3
+import pickle
+import json
 
 
 
-
+aws_access_key= os.environ.geT('AWS_ACCESS_KEY')
+aws_secret_key= os.environ.geT('AWS_SECRET_KEY')
 mailgun_sandbox=os.environ.get('MAILGUN_SANDBOX')
 mailgun_key=os.environ.get('MAILGUN_KEY')
 to_email=os.environ.get('TO_EMAIL')
 
 
 stocks_name ={}
+s3 = boto3.client(
+    's3',
+    aws_access_key_id=aws_access_key,
+    aws_secret_access_key=aws_secret_key
+)
+try:
+    object = s3.get_object(Bucket='eleco-finviz',Key='EmpId007')
+    serializedObject = object['Body'].read()
+    stocks_name = pickle.loads(serializedObject)
+    print ('stocks name:', stocks_name)
+except:
+    print ("no such key in bucket")
+
 
 def send_email(title1, stocks1, title2, stocks2, title3, stocks3, title4, stocks4):
     try:
@@ -57,6 +74,7 @@ def build (filters):
         if stock['Ticker'] in  stocks_name:
             name = stocks_name[stock['Ticker']]
         else:
+            print('fetching stock ticker from yahoo:', stock['Ticker'])
             msft = yf.Ticker(stock['Ticker'])
             stocks_name[stock['Ticker']] = msft.info['longName'] 
             name = msft.info['longName']
@@ -74,7 +92,20 @@ filters2 = ['f', 'fa_debteq_u1,fa_roe_o20,sh_avgvol_o100,ta_highlow50d_nh,ta_sma
 filters3 = ['f', 'cap_smallover,fa_pb_low,fa_pe_low,fa_peg_low,fa_roa_pos,fa_roe_pos,sh_price_o5,ta_sma50_pa&ft=4&o=-perfytd']
 filters4 = ['f', 'cap_microover,fa_eps5years_o20,fa_epsqoq_o20,fa_epsyoy_o20,fa_pe_u40,fa_sales5years_o20,fa_salesqoq_o20,sh_curvol_o50,ta_rsi_nob60,ta_sma50_pa&ft=4']
 
-send_email('downgraded on the up', build(filters1), 'breaking out', build(filters2), 'low PE value', build(filters3),
-'CANSLIM', build(filters4))
+
+stocks1 = build(filters1)
+stocks2 = build(filters2)
+stocks3 = build(filters3)
+stocks4 = build(filters4)
+
+
+#Write to S3 using unique key - EmpId007
+print('write stocks name into s3')
+serializedMyData = pickle.dumps(stocks_name)
+s3.put_object(Bucket='eleco-finviz',Key='EmpId007', Body=serializedMyData)
+
+
+print('sending email')
+send_email('downgraded on the up', stocks1 , 'breaking out', stocks2, 'low PE value', stocks3,'CANSLIM', stocks4)
 
 
