@@ -10,8 +10,8 @@ import json
 
 
 
-aws_access_key= os.environ.geT('AWS_ACCESS_KEY')
-aws_secret_key= os.environ.geT('AWS_SECRET_KEY')
+aws_access_key= os.environ.get('AWS_ACCESS_KEY')
+aws_secret_key= os.environ.get('AWS_SECRET_KEY')
 mailgun_sandbox=os.environ.get('MAILGUN_SANDBOX')
 mailgun_key=os.environ.get('MAILGUN_KEY')
 to_email=os.environ.get('TO_EMAIL')
