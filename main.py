@@ -32,12 +32,14 @@ except:
     print ("no such key in bucket")
 
 
-def send_email(title1, stocks1, title2, stocks2, title3, stocks3, title4, stocks4):
+def send_email(title1, stocks1, title2, stocks2, title3, stocks3, title4, stocks4, title5, stocks5, title6, stocks6):
     try:
         df1 = pd.Series(stocks1).to_frame()
         df2 = pd.Series(stocks2).to_frame()
         df3 = pd.Series(stocks3).to_frame()
         df4 = pd.Series(stocks4).to_frame()
+        df5 = pd.Series(stocks5).to_frame()
+        df6 = pd.Series(stocks6).to_frame()
 
         request_url = 'https://api.mailgun.net/v2/{0}/messages'.format(mailgun_sandbox)
         request = requests.post(request_url, auth=('api', mailgun_key), 
@@ -45,10 +47,14 @@ def send_email(title1, stocks1, title2, stocks2, title3, stocks3, title4, stocks
         'from': 'finviz-notifierr@noreply.com',
         'to': to_email,
         'subject':'finviz notifier:' + str(date.today()),
-        'html': "<h1>" + title1 + "</h1>\n" + df1.to_html()  + "\n\n"
+        'html': 
+        "<h1>" + title1 + "</h1>\n" + df1.to_html()  + "\n\n"
         "<h1>" + title2 +"</h1>\n" + df2.to_html()        + "\n\n"
         "<h1>" + title3 +"</h1>\n" + df3.to_html()        + "\n\n"
-        "<h1>" + title4 +"</h1>\n" + df4.to_html()     
+        "<h1>" + title4 +"</h1>\n" + df4.to_html()     + "\n\n"
+        "<h1>" + title5 +"</h1>\n" + df5.to_html()     + "\n\n"
+        "<h1>" + title6 +"</h1>\n" + df6.to_html()     
+        
         
         })
         
@@ -87,16 +93,19 @@ def build (filters):
 
 ################
 
-filters1 = ['f', 'an_recom_sellworse,cap_smallover,fa_epsyoy1_o10,fa_fpe_low,ta_sma20_pa&ft=4&o=marketcap' ]
-filters2 = ['f', 'fa_debteq_u1,fa_roe_o20,sh_avgvol_o100,ta_highlow50d_nh,ta_sma20_pa,ta_sma200_pa,ta_sma50_pa&ft=4&o=-perf1w']
-filters3 = ['f', 'cap_smallover,fa_pb_low,fa_pe_low,fa_peg_low,fa_roa_pos,fa_roe_pos,sh_price_o5,ta_sma50_pa&ft=4&o=-perfytd']
-filters4 = ['f', 'cap_microover,fa_eps5years_o20,fa_epsqoq_o20,fa_epsyoy_o20,fa_pe_u40,fa_sales5years_o20,fa_salesqoq_o20,sh_curvol_o50,ta_rsi_nob60,ta_sma50_pa&ft=4']
+downgraded_on_up = ['f', 'an_recom_sellworse,cap_smallover,fa_epsyoy1_o10,fa_fpe_low,ta_sma20_pa&ft=4&o=marketcap' ]
+breakout = ['f', 'fa_debteq_u1,fa_roe_o20,sh_avgvol_o100,ta_highlow50d_nh,ta_sma20_pa,ta_sma200_pa,ta_sma50_pa&ft=4&o=-perf1w']
+low_pe = ['f', 'cap_smallover,fa_pb_low,fa_pe_low,fa_peg_low,fa_roa_pos,fa_roe_pos,sh_price_o5,ta_sma50_pa&ft=4&o=-perfytd']
+canslim = ['f', 'cap_microover,fa_eps5years_o20,fa_epsqoq_o20,fa_epsyoy_o20,fa_pe_u40,fa_sales5years_o20,fa_salesqoq_o20,sh_curvol_o50,ta_rsi_nob60,ta_sma50_pa&ft=4']
+trend_and_hammer = ['f','sh_avgvol_o500,sh_short_o5,ta_candlestick_h,ta_changeopen_u,ta_pattern_wedge,ta_sma20_pa,ta_sma200_pa,ta_sma50_pa&ft=3']
+trendline_support= ['f','sh_avgvol_o500,sh_short_o5,ta_changeopen_u,ta_pattern_tlsupport,ta_rsi_nob60,ta_sma20_pa,ta_sma200_pa,ta_sma50_pa&ft=4&r=21']
 
-
-stocks1 = build(filters1)
-stocks2 = build(filters2)
-stocks3 = build(filters3)
-stocks4 = build(filters4)
+stocks_downgraded_on_up = build(downgraded_on_up)
+stocks_breakout = build(breakout)
+stocks_low_pe = build(low_pe)
+stocks_canslim = build(canslim)
+stocks_trend_hammer = build(trend_and_hammer)
+stocks_trendline = build(trendline_support)
 
 
 #Write to S3 using unique key - EmpId007
@@ -106,6 +115,13 @@ s3.put_object(Bucket='eleco-finviz',Key='EmpId007', Body=serializedMyData)
 
 
 print('sending email')
-send_email('downgraded on the up', stocks1 , 'breaking out', stocks2, 'low PE value', stocks3,'CANSLIM', stocks4)
+send_email(
+    'downgraded on the up', stocks_downgraded_on_up , 
+    'breaking out', stocks_breakout, 
+    'low PE value', stocks_low_pe,
+    'CANSLIM', stocks_canslim,
+    'trend_hammer', stocks_trend_hammer,
+    'trendline', stocks_trendline
+    )
 
 
