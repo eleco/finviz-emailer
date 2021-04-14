@@ -67,29 +67,28 @@ def send_email(title1, stocks1, title2, stocks2, title3, stocks3, title4, stocks
 
 
 def build (filters):
-    stock_list = Screener(filters=filters, table='Performance', order='price')  # Get the performance table and sort it by price ascending
-
-    # Export the screener results to .csv
-    stock_list.to_csv("stock.csv")
-
-    print(stock_list)
     map = {}
-    for stock in stock_list:
+    try:
+        stock_list = Screener(filters=filters, table='Performance', order='price')  # Get the performance table and sort it by price ascending
+
+        print(stock_list)
         
-        
-        if stock['Ticker'] in  stocks_name:
-            name = stocks_name[stock['Ticker']]
-        else:
-            print('fetching stock ticker from yahoo:', stock['Ticker'])
-            msft = yf.Ticker(stock['Ticker'])
-            stocks_name[stock['Ticker']] = msft.info['longName'] 
-            name = msft.info['longName']
-        
-        map[(stock['Ticker'])] = name + ' --> ' +stock['Price']
+        for stock in stock_list:
+            
+            if stock['Ticker'] in  stocks_name:
+                name = stocks_name[stock['Ticker']]
+            else:
+                print('fetching stock ticker from yahoo:', stock['Ticker'])
+                msft = yf.Ticker(stock['Ticker'])
+                stocks_name[stock['Ticker']] = msft.info['longName'] 
+                name = msft.info['longName']
+            
+            map[(stock['Ticker'])] = name + ' --> ' +stock['Price']
+    except Exception as e:
+        print(e)
 
     return map
 
-   
 
 ################
 
