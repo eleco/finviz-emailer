@@ -93,9 +93,9 @@ def build (filters):
 ################
 
 downgraded_on_up = ['f', 'an_recom_sellworse,cap_smallover,fa_epsyoy1_o10,fa_fpe_low,ta_sma20_pa&ft=4&o=marketcap' ]
-breakout = ['f', 'fa_debteq_u1,fa_roe_o20,sh_avgvol_o100,ta_highlow50d_nh,ta_sma20_pa,ta_sma200_pa,ta_sma50_pa&ft=4&o=-perf1w']
+breakout = ['f', 'cap_midover,fa_debteq_u1,fa_roe_o20,sh_avgvol_o200,ta_changeopen_u,ta_highlow50d_nh,ta_sma20_pa,ta_sma200_pa,ta_sma50_pa&ft=4&o=-perf1w']
 low_pe = ['f', 'cap_smallover,fa_pb_low,fa_pe_low,fa_peg_low,fa_roa_pos,fa_roe_pos,sh_price_o5,ta_sma50_pa&ft=4&o=-perfytd']
-canslim = ['f', 'cap_microover,fa_eps5years_o20,fa_epsqoq_o20,fa_epsyoy_o20,fa_pe_u40,fa_sales5years_o20,fa_salesqoq_o20,sh_curvol_o50,ta_rsi_nob60,ta_sma50_pa&ft=4']
+canslim = ['f', 'fa_eps5years_o20,fa_epsqoq_o20,fa_epsyoy_o20,fa_sales5years_o20,fa_salesqoq_o20,sh_curvol_o200,ta_sma200_pa&ft=4&r=21']
 trend_and_hammer = ['f','sh_avgvol_o500,sh_short_o5,ta_candlestick_h,ta_changeopen_u,ta_pattern_wedge,ta_sma20_pa,ta_sma200_pa,ta_sma50_pa&ft=3']
 trendline_support= ['f','sh_avgvol_o500,sh_short_o5,ta_changeopen_u,ta_pattern_tlsupport,ta_rsi_nob60,ta_sma20_pa,ta_sma200_pa,ta_sma50_pa&ft=4&r=21']
 
