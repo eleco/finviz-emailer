@@ -113,12 +113,12 @@ serializedMyData = pickle.dumps(stocks_name)
 s3.put_object(Bucket='eleco-finviz',Key='EmpId007', Body=serializedMyData)
 
 #write finviz results to s3
-s3.put_object(Bucket='eleco-finviz',Key='downgraded_on_up', Body=downgraded_on_up)
-s3.put_object(Bucket='eleco-finviz',Key='breakout', Body=stocks_breakout)
-s3.put_object(Bucket='eleco-finviz',Key='low_pe', Body=stocks_low_pe)
-s3.put_object(Bucket='eleco-finviz',Key='canslim', Body=stocks_canslim)
-s3.put_object(Bucket='eleco-finviz',Key='trend_hammer', Body=stocks_trend_hammer)
-s3.put_object(Bucket='eleco-finviz',Key='trend_hammer', Body=stocks_trend_hammer)
+s3.put_object(Bucket='eleco-finviz',Key='downgraded_on_up', Body=pickle.dumps(downgraded_on_up))
+s3.put_object(Bucket='eleco-finviz',Key='breakout', Body=pickle.dumps(stocks_breakout))
+s3.put_object(Bucket='eleco-finviz',Key='low_pe', Body=pickle.dumps(stocks_low_pe))
+s3.put_object(Bucket='eleco-finviz',Key='canslim', Body=pickle.dumps(stocks_canslim))
+s3.put_object(Bucket='eleco-finviz',Key='trend_hammer', Body=pickle.dumps(stocks_trend_hammer))
+s3.put_object(Bucket='eleco-finviz',Key='trendline', Body=pickle.dumps(stocks_trendline))
 
 
 
