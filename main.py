@@ -92,6 +92,18 @@ def build (filters):
 
 ################
 
+
+object = s3.get_object(Bucket='eleco-finviz',Key='downgraded_on_up')
+serialized_downgraded_on_up = object['Body'].read()
+print("deserialized downgraded on up ")
+print(pickle.loads(serialized_downgraded_on_up))
+
+object = s3.get_object(Bucket='eleco-finviz',Key='breakout')
+serialized_breakout = object['Body'].read()
+print("deserialized breakout ")
+print(pickle.loads(serialized_breakout))
+
+
 downgraded_on_up = ['f', 'an_recom_sellworse,cap_smallover,fa_epsyoy1_o10,fa_fpe_low,ta_sma20_pa&ft=4&o=marketcap' ]
 breakout = ['f', 'cap_midover,fa_debteq_u1,fa_roe_o20,sh_avgvol_o200,ta_changeopen_u,ta_highlow50d_nh,ta_sma20_pa,ta_sma200_pa,ta_sma50_pa&ft=4&o=-perf1w']
 low_pe = ['f', 'cap_smallover,fa_pb_low,fa_pe_low,fa_peg_low,fa_roa_pos,fa_roe_pos,sh_price_o5,ta_sma50_pa&ft=4&o=-perfytd']
@@ -119,7 +131,6 @@ s3.put_object(Bucket='eleco-finviz',Key='low_pe', Body=pickle.dumps(stocks_low_p
 s3.put_object(Bucket='eleco-finviz',Key='canslim', Body=pickle.dumps(stocks_canslim))
 s3.put_object(Bucket='eleco-finviz',Key='trend_hammer', Body=pickle.dumps(stocks_trend_hammer))
 s3.put_object(Bucket='eleco-finviz',Key='trendline', Body=pickle.dumps(stocks_trendline))
-
 
 
 print('sending email')
