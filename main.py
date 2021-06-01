@@ -94,14 +94,35 @@ def build (filters):
 
 
 object = s3.get_object(Bucket='eleco-finviz',Key='downgraded_on_up')
-serialized_downgraded_on_up = object['Body'].read()
+deserialized_downgraded_on_up = object['Body'].read()
 print("deserialized downgraded on up ")
-print(pickle.loads(serialized_downgraded_on_up))
+print(pickle.loads(deserialized_downgraded_on_up))
 
-object = s3.get_object(Bucket='eleco-finviz',Key='breakout')
-serialized_breakout = object['Body'].read()
+object = s3.get_object(Bucket='eleco-finviz',Key='stocks_breakout')
+deserialized_breakout = object['Body'].read()
 print("deserialized breakout ")
-print(pickle.loads(serialized_breakout))
+print(pickle.loads(deserialized_breakout))
+
+object = s3.get_object(Bucket='eleco-finviz',Key='stocks_low_pe')
+deserialized_low_pe = object['Body'].read()
+print("deserialized low pe ")
+print(pickle.loads(deserialized_low_pe))
+
+object = s3.get_object(Bucket='eleco-finviz',Key='stocks_canslim')
+deserialized_canslim = object['Body'].read()
+print("deserialized canslim")
+print(pickle.loads(deserialized_canslim))
+
+object = s3.get_object(Bucket='eleco-finviz',Key='stocks_trend_hammer')
+deserialized_hammer = object['Body'].read()
+print("deserialized hammer")
+print(pickle.loads(deserialized_hammer))
+
+object = s3.get_object(Bucket='eleco-finviz',Key='stocks_trendline')
+deserialized_trendline = object['Body'].read()
+print("deserialized trendline")
+print(pickle.loads(deserialized_trendline))
+
 
 
 downgraded_on_up = ['f', 'an_recom_sellworse,cap_smallover,fa_epsyoy1_o10,fa_fpe_low,ta_sma20_pa&ft=4&o=marketcap' ]
