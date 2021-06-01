@@ -9,6 +9,7 @@ pandas = "*"
 jinja2 = "*"
 yfinance = "*"
 boto3 = "*"
+deepdiff = "*"
 
 [dev-packages]
 

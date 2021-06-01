@@ -7,6 +7,7 @@ import yfinance as yf
 import boto3
 import pickle
 import json
+from deepdiff import DeepDiff 
 
 
 
@@ -133,11 +134,28 @@ trend_and_hammer = ['f','sh_avgvol_o500,sh_short_o5,ta_candlestick_h,ta_changeop
 trendline_support= ['f','sh_avgvol_o500,sh_short_o5,ta_changeopen_u,ta_pattern_tlsupport,ta_rsi_nob60,ta_sma20_pa,ta_sma200_pa,ta_sma50_pa&ft=4&r=21']
 
 stocks_downgraded_on_up = build(downgraded_on_up)
+ddiff = DeepDiff(stocks_downgraded_on_up, deserialized_downgraded_on_up, ignore_order=True)
+print("diff downgraded:" + ddiff)
+ 
 stocks_breakout = build(breakout)
+ddiff = DeepDiff(stocks_breakout, deserialized_breakout, ignore_order=True)
+print("diff breakout:" + ddiff)
+
 stocks_low_pe = build(low_pe)
+ddiff = DeepDiff(stocks_low_pe, deserialized_low_pe, ignore_order=True)
+print("diff low pe:" + ddiff)
+
 stocks_canslim = build(canslim)
+ddiff = DeepDiff(stocks_canslim, deserialized_canslim, ignore_order=True)
+print("diff cansli,:" + ddiff)
+
 stocks_trend_hammer = build(trend_and_hammer)
+ddiff = DeepDiff(stocks_trend_hammer, deserialized_hammer, ignore_order=True)
+print("diff hammer:" + ddiff)
+
 stocks_trendline = build(trendline_support)
+ddiff = DeepDiff(stocks_trendline, deserialized_trendline, ignore_order=True)
+print("diff trendline:" + ddiff)
 
 
 #Write to S3 using unique key - EmpId007
@@ -146,7 +164,7 @@ serializedMyData = pickle.dumps(stocks_name)
 s3.put_object(Bucket='eleco-finviz',Key='EmpId007', Body=serializedMyData)
 
 #write finviz results to s3
-s3.put_object(Bucket='eleco-finviz',Key='downgraded_on_up', Body=pickle.dumps(downgraded_on_up))
+s3.put_object(Bucket='eleco-finviz',Key='downgraded_on_up', Body=pickle.dumps(stocks_downgraded_on_up))
 s3.put_object(Bucket='eleco-finviz',Key='breakout', Body=pickle.dumps(stocks_breakout))
 s3.put_object(Bucket='eleco-finviz',Key='low_pe', Body=pickle.dumps(stocks_low_pe))
 s3.put_object(Bucket='eleco-finviz',Key='canslim', Body=pickle.dumps(stocks_canslim))
