@@ -135,27 +135,27 @@ trendline_support= ['f','sh_avgvol_o500,sh_short_o5,ta_changeopen_u,ta_pattern_t
 
 stocks_downgraded_on_up = build(downgraded_on_up)
 ddiff = DeepDiff(stocks_downgraded_on_up, deserialized_downgraded_on_up, ignore_order=True)
-print("diff downgraded:" + ddiff)
+print("diff downgraded:" + str(ddiff))
  
 stocks_breakout = build(breakout)
 ddiff = DeepDiff(stocks_breakout, deserialized_breakout, ignore_order=True)
-print("diff breakout:" + ddiff)
+print("diff breakout:" + str(ddiff))
 
 stocks_low_pe = build(low_pe)
 ddiff = DeepDiff(stocks_low_pe, deserialized_low_pe, ignore_order=True)
-print("diff low pe:" + ddiff)
+print("diff low pe:" + str(ddiff))
 
 stocks_canslim = build(canslim)
 ddiff = DeepDiff(stocks_canslim, deserialized_canslim, ignore_order=True)
-print("diff cansli,:" + ddiff)
+print("diff cansli,:" + str(ddiff))
 
 stocks_trend_hammer = build(trend_and_hammer)
 ddiff = DeepDiff(stocks_trend_hammer, deserialized_hammer, ignore_order=True)
-print("diff hammer:" + ddiff)
+print("diff hammer:" + str(ddiff))
 
 stocks_trendline = build(trendline_support)
 ddiff = DeepDiff(stocks_trendline, deserialized_trendline, ignore_order=True)
-print("diff trendline:" + ddiff)
+print("diff trendline:" + str(ddiff))
 
 
 #Write to S3 using unique key - EmpId007
