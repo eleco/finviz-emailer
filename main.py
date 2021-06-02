@@ -135,27 +135,27 @@ trendline_support= ['f','sh_avgvol_o500,sh_short_o5,ta_changeopen_u,ta_pattern_t
 
 stocks_downgraded_on_up = build(downgraded_on_up)
 ddiff = diff(stocks_downgraded_on_up, deserialized_downgraded_on_up)
-print("diff downgraded:" + list(ddiff))
+print("diff downgraded:" + str(list(ddiff)))
  
 stocks_breakout = build(breakout)
 ddiff = diff(stocks_breakout, deserialized_breakout)
-print("diff breakout:" + list(ddiff))
+print("diff breakout:" + str(list(ddiff)))
 
 stocks_low_pe = build(low_pe)
 ddiff = diff(stocks_low_pe, deserialized_low_pe)
-print("diff low pe:" + list(ddiff))
+print("diff low pe:" + str(list(ddiff)))
 
 stocks_canslim = build(canslim)
 ddiff = diff(stocks_canslim, deserialized_canslim)
-print("diff cansli,:" + list(ddiff))
+print("diff cansli,:" + str(list(ddiff)))
 
 stocks_trend_hammer = build(trend_and_hammer)
 ddiff = diff(stocks_trend_hammer, deserialized_hammer)
-print("diff hammer:" + list(ddiff))
+print("diff hammer:" + str(list(ddiff)))
 
 stocks_trendline = build(trendline_support)
 ddiff = diff(stocks_trendline, deserialized_trendline)
-print("diff trendline:" + list(ddiff))
+print("diff trendline:" + str(list(ddiff)))
 
 
 #Write to S3 using unique key - EmpId007
