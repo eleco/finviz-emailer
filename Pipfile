@@ -10,6 +10,7 @@ jinja2 = "*"
 yfinance = "*"
 boto3 = "*"
 deepdiff = "*"
+dictdiffer = "*"
 
 [dev-packages]
 
