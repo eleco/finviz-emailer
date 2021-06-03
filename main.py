@@ -138,10 +138,13 @@ print(pickle.loads(deserialized_downgraded_on_up))
 stocks_downgraded_on_up = build(downgraded_on_up)
 print("stocks downgraded on up")
 print(stocks_downgraded_on_up)
+print("deserialied downgraded")
+print(deserialized_downgraded_on_up)
 ddiff = diff(stocks_downgraded_on_up, deserialized_downgraded_on_up)
 print("diff downgraded:" + str(list(ddiff)))
  
 stocks_breakout = build(breakout)
+print("breakout:" + str(breakout))
 ddiff = diff(stocks_breakout, deserialized_breakout)
 print("diff breakout:" + str(list(ddiff)))
 
