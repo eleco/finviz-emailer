@@ -94,31 +94,23 @@ def build (filters):
 ################
 
 
+object = s3.get_object(Bucket='eleco-finviz',Key='downgraded_on_up')
+deserialized_downgraded_on_up = pickle.loads(object['Body'].read())
 
 object = s3.get_object(Bucket='eleco-finviz',Key='breakout')
-deserialized_breakout = object['Body'].read()
-print("deserialized breakout ")
-print(pickle.loads(deserialized_breakout))
+deserialized_breakout = pickle.loads(object['Body'].read())
 
 object = s3.get_object(Bucket='eleco-finviz',Key='low_pe')
-deserialized_low_pe = object['Body'].read()
-print("deserialized low pe ")
-print(pickle.loads(deserialized_low_pe))
+deserialized_low_pe = pickle.loads(object['Body'].read())
 
 object = s3.get_object(Bucket='eleco-finviz',Key='canslim')
-deserialized_canslim = object['Body'].read()
-print("deserialized canslim")
-print(pickle.loads(deserialized_canslim))
+deserialized_canslim = pickle.loads(object['Body'].read())
 
 object = s3.get_object(Bucket='eleco-finviz',Key='trend_hammer')
-deserialized_hammer = object['Body'].read()
-print("deserialized hammer")
-print(pickle.loads(deserialized_hammer))
+deserialized_hammer = pickle.loads(object['Body'].read())
 
 object = s3.get_object(Bucket='eleco-finviz',Key='trendline')
-deserialized_trendline = object['Body'].read()
-print("deserialized trendline")
-print(pickle.loads(deserialized_trendline))
+deserialized_trendline = pickle.loads(object['Body'].read())
 
 
 
@@ -130,21 +122,13 @@ trend_and_hammer = ['f','sh_avgvol_o500,sh_short_o5,ta_candlestick_h,ta_changeop
 trendline_support= ['f','sh_avgvol_o500,sh_short_o5,ta_changeopen_u,ta_pattern_tlsupport,ta_rsi_nob60,ta_sma20_pa,ta_sma200_pa,ta_sma50_pa&ft=4&r=21']
 
 
-object = s3.get_object(Bucket='eleco-finviz',Key='downgraded_on_up')
-deserialized_downgraded_on_up = object['Body'].read()
-print("deserialized downgraded on up ")
-print(pickle.loads(deserialized_downgraded_on_up))
+
 
 stocks_downgraded_on_up = build(downgraded_on_up)
-print("stocks downgraded on up")
-print(stocks_downgraded_on_up)
-print("deserialied downgraded")
-print(deserialized_downgraded_on_up)
 ddiff = diff(stocks_downgraded_on_up, deserialized_downgraded_on_up)
 print("diff downgraded:" + str(list(ddiff)))
  
 stocks_breakout = build(breakout)
-print("breakout:" + str(breakout))
 ddiff = diff(stocks_breakout, deserialized_breakout)
 print("diff breakout:" + str(list(ddiff)))
 
