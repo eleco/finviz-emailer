@@ -125,28 +125,28 @@ trendline_support= ['f','sh_avgvol_o500,sh_short_o5,ta_changeopen_u,ta_pattern_t
 
 
 stocks_downgraded_on_up = build(downgraded_on_up)
-ddiff = diff(stocks_downgraded_on_up, deserialized_downgraded_on_up)
-print("diff downgraded:" + str(list(ddiff)))
+ddiff_downgraded = diff(stocks_downgraded_on_up, deserialized_downgraded_on_up)
+print("diff downgraded:" + str(list(ddiff_downgraded)))
  
 stocks_breakout = build(breakout)
-ddiff = diff(stocks_breakout, deserialized_breakout)
-print("diff breakout:" + str(list(ddiff)))
+ddiff_breakout = diff(stocks_breakout, deserialized_breakout)
+print("diff breakout:" + str(list(ddiff_breakout)))
 
 stocks_low_pe = build(low_pe)
-ddiff = diff(stocks_low_pe, deserialized_low_pe)
-print("diff low pe:" + str(list(ddiff)))
+ddiff_low_pe = diff(stocks_low_pe, deserialized_low_pe)
+print("diff low pe:" + str(list(ddiff_low_pe)))
 
 stocks_canslim = build(canslim)
-ddiff = diff(stocks_canslim, deserialized_canslim)
-print("diff cansli,:" + str(list(ddiff)))
+ddiff_canslim = diff(stocks_canslim, deserialized_canslim)
+print("diff canslim:" + str(list(ddiff_canslim)))
 
 stocks_trend_hammer = build(trend_and_hammer)
-ddiff = diff(stocks_trend_hammer, deserialized_hammer)
-print("diff hammer:" + str(list(ddiff)))
+ddiff_hammer = diff(stocks_trend_hammer, deserialized_hammer)
+print("diff hammer:" + str(list(ddiff_hammer)))
 
 stocks_trendline = build(trendline_support)
-ddiff = diff(stocks_trendline, deserialized_trendline)
-print("diff trendline:" + str(list(ddiff)))
+ddiff_trendline = diff(stocks_trendline, deserialized_trendline)
+print("diff trendline:" + str(list(ddiff_trendline)))
 
 
 #Write to S3 using unique key - EmpId007
@@ -165,12 +165,12 @@ s3.put_object(Bucket='eleco-finviz',Key='trendline', Body=pickle.dumps(stocks_tr
 
 print('sending email')
 send_email(
-    'downgraded on the up', stocks_downgraded_on_up , 
-    'breaking out', stocks_breakout, 
-    'low PE value', stocks_low_pe,
-    'CANSLIM', stocks_canslim,
-    'trend_hammer', stocks_trend_hammer,
-    'trendline', stocks_trendline
+    'downgraded on the up', ddiff_downgraded, 
+    'breaking out', ddiff_breakout, 
+    'low PE value', ddiff_low_pe,
+    'CANSLIM', ddiff_canslim,
+    'trend_hammer', ddiff_hammer,
+    'trendline', ddiff_trendline
     )
 
 
