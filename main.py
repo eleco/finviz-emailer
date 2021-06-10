@@ -35,12 +35,12 @@ except:
 
 def send_email(title1, stocks1, title2, stocks2, title3, stocks3, title4, stocks4, title5, stocks5, title6, stocks6):
     try:
-        df1 = pd.Series(stocks1).to_frame()
-        df2 = pd.Series(stocks2).to_frame()
-        df3 = pd.Series(stocks3).to_frame()
-        df4 = pd.Series(stocks4).to_frame()
-        df5 = pd.Series(stocks5).to_frame()
-        df6 = pd.Series(stocks6).to_frame()
+        #df1 = pd.Series(stocks1).to_frame()
+        #df2 = pd.Series(stocks2).to_frame()
+        #df3 = pd.Series(stocks3).to_frame()
+        #df4 = pd.Series(stocks4).to_frame()
+        #df5 = pd.Series(stocks5).to_frame()
+        #df6 = pd.Series(stocks6).to_frame()
 
         request_url = 'https://api.mailgun.net/v2/{0}/messages'.format(mailgun_sandbox)
         request = requests.post(request_url, auth=('api', mailgun_key), 
@@ -49,12 +49,12 @@ def send_email(title1, stocks1, title2, stocks2, title3, stocks3, title4, stocks
         'to': to_email,
         'subject':'finviz notifier:' + str(date.today()),
         'html': 
-        "<h1>" + title1 + "</h1>\n" + df1.to_html()  + "\n\n"
-        "<h1>" + title2 +"</h1>\n" + df2.to_html()        + "\n\n"
-        "<h1>" + title3 +"</h1>\n" + df3.to_html()        + "\n\n"
-        "<h1>" + title4 +"</h1>\n" + df4.to_html()     + "\n\n"
-        "<h1>" + title5 +"</h1>\n" + df5.to_html()     + "\n\n"
-        "<h1>" + title6 +"</h1>\n" + df6.to_html()     
+        "<h1>" + title1 + "</h1>\n" +  str(list(stocks1))  + "\n\n"
+        "<h1>" + title2 +"</h1>\n" + str(list(stocks2))    + "\n\n"
+        "<h1>" + title3 +"</h1>\n" + str(list(stocks3))      + "\n\n"
+        "<h1>" + title4 +"</h1>\n" + str(list(stocks4))     + "\n\n"
+        "<h1>" + title5 +"</h1>\n" + str(list(stocks5))     + "\n\n"
+        "<h1>" + title6 +"</h1>\n" + str(list(stocks6))    
         
         
         })
