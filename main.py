@@ -132,40 +132,38 @@ trendline_support= ['f','sh_avgvol_o500,sh_short_o5,ta_changeopen_u,ta_pattern_t
 
 stocks_downgraded_on_up = build(downgraded_on_up)
 ddiff_downgraded = diff(stocks_downgraded_on_up, deserialized_downgraded_on_up)
-print("diff downgraded:" + str(list(ddiff_downgraded)))
+#print("diff downgraded:" + str(list(ddiff_downgraded)))
  
 stocks_breakout = build(breakout)
 ddiff_breakout = diff(stocks_breakout, deserialized_breakout)
-print("diff breakout:" + str(list(ddiff_breakout)))
+#print("diff breakout:" + str(list(ddiff_breakout)))
 
 stocks_low_pe = build(low_pe)
 ddiff_low_pe = diff(stocks_low_pe, deserialized_low_pe)
-print("diff low pe:" + str(list(ddiff_low_pe)))
+#print("diff low pe:" + str(list(ddiff_low_pe)))
 
 stocks_canslim = build(canslim)
 ddiff_canslim = diff(stocks_canslim, deserialized_canslim)
-print("diff canslim:" + str(list(ddiff_canslim)))
+#print("diff canslim:" + str(list(ddiff_canslim)))
 
 stocks_trend_hammer = build(trend_and_hammer)
 ddiff_hammer = diff(stocks_trend_hammer, deserialized_hammer)
-print("diff hammer:" + str(list(ddiff_hammer)))
+#print("diff hammer:" + str(list(ddiff_hammer)))
 
 stocks_trendline = build(trendline_support)
 ddiff_trendline = diff(stocks_trendline, deserialized_trendline)
-print("diff trendline:" + str(list(ddiff_trendline)))
+#print("diff trendline:" + str(list(ddiff_trendline)))
 
 
 print('sending email')
-print(ddiff_trendline)
-print(str(list(ddiff_trendline)))
-print("yrdy" + str(list(ddiff_trendline)))
+
 send_email(
     'downgraded on the up', ddiff_downgraded, 
     'breaking out', ddiff_breakout, 
     'low PE value', ddiff_low_pe,
     'CANSLIM', ddiff_canslim,
     'trend_hammer', ddiff_hammer,
-    'trendline', str(list(ddiff_trendline))
+    'trendline', ddiff_trendline
     )
 
 #Write to S3 using unique key - EmpId007
