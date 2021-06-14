@@ -156,6 +156,9 @@ print("diff trendline:" + str(list(ddiff_trendline)))
 
 
 print('sending email')
+print(ddiff_trendline)
+print(str(list(ddiff_trendline)))
+print("yrdy" + str(list(ddiff_trendline)))
 send_email(
     'downgraded on the up', ddiff_downgraded, 
     'breaking out', ddiff_breakout, 
