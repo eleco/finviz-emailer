@@ -45,8 +45,8 @@ def send_email(title1, stocks1, title2, stocks2, title3, stocks3, title4, stocks
         print(str(list(stocks2)))
         print(str(list(stocks3)))
         print(str(list(stocks4)))
-        print(str(list(stocks5)))
-        print(str(list(stocks6)))
+        print(str(list(stocks5)
+        print(str(list(stocks6)
         
         request_url = 'https://api.mailgun.net/v2/{0}/messages'.format(mailgun_sandbox)
         request = requests.post(request_url, auth=('api', mailgun_key), 
@@ -155,6 +155,16 @@ ddiff_trendline = diff(stocks_trendline, deserialized_trendline)
 print("diff trendline:" + str(list(ddiff_trendline)))
 
 
+print('sending email')
+send_email(
+    'downgraded on the up', ddiff_downgraded, 
+    'breaking out', ddiff_breakout, 
+    'low PE value', ddiff_low_pe,
+    'CANSLIM', ddiff_canslim,
+    'trend_hammer', ddiff_hammer,
+    'trendline', ddiff_trendline
+    )
+
 #Write to S3 using unique key - EmpId007
 print('write stocks name into s3')
 serializedMyData = pickle.dumps(stocks_name)
@@ -169,14 +179,6 @@ s3.put_object(Bucket='eleco-finviz',Key='trend_hammer', Body=pickle.dumps(stocks
 s3.put_object(Bucket='eleco-finviz',Key='trendline', Body=pickle.dumps(stocks_trendline))
 
 
-print('sending email')
-send_email(
-    'downgraded on the up', ddiff_downgraded, 
-    'breaking out', ddiff_breakout, 
-    'low PE value', ddiff_low_pe,
-    'CANSLIM', ddiff_canslim,
-    'trend_hammer', ddiff_hammer,
-    'trendline', ddiff_trendline
-    )
+
 
 
