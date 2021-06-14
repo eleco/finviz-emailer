@@ -45,8 +45,8 @@ def send_email(title1, stocks1, title2, stocks2, title3, stocks3, title4, stocks
         print(str(list(stocks2)))
         print(str(list(stocks3)))
         print(str(list(stocks4)))
-        print(str(list(stocks5)
-        print(str(list(stocks6)
+        print(str(list(stocks5)))
+        print(str(list(stocks6)))
         
         request_url = 'https://api.mailgun.net/v2/{0}/messages'.format(mailgun_sandbox)
         request = requests.post(request_url, auth=('api', mailgun_key), 
