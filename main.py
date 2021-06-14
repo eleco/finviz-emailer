@@ -41,7 +41,13 @@ def send_email(title1, stocks1, title2, stocks2, title3, stocks3, title4, stocks
         #df4 = pd.Series(stocks4).to_frame()
         #df5 = pd.Series(stocks5).to_frame()
         #df6 = pd.Series(stocks6).to_frame()
-
+        print(stocks1)
+        print(stocks2)
+        print(stocks3)
+        print(stocks4)
+        print(stocks5)
+        print(stocks6)
+        
         request_url = 'https://api.mailgun.net/v2/{0}/messages'.format(mailgun_sandbox)
         request = requests.post(request_url, auth=('api', mailgun_key), 
         data={
