@@ -162,7 +162,7 @@ send_email(
     'low PE value', ddiff_low_pe,
     'CANSLIM', ddiff_canslim,
     'trend_hammer', ddiff_hammer,
-    'trendline', ddiff_trendline
+    'trendline', str(list(ddiff_trendline))
     )
 
 #Write to S3 using unique key - EmpId007
